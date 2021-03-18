@@ -87,7 +87,11 @@ namespace EmployeePayrollADONET
             return dset;
 
         }
-
+        /// <summary>
+        /// Update salary by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="salary"></param>
         public void UpdateEmployeeSalary(string name, int salary)
         {
             SqlConnection connection = new SqlConnection(connectionString);
