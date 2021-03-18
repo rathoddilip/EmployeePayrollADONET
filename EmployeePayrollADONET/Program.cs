@@ -31,10 +31,10 @@ namespace EmployeePayrollADONET
                         employee = new EmployeeModel();
                         employee.EmpID = rd.IsDBNull(0) ? default : rd.GetInt32(0);
                         employee.EmpName = rd.IsDBNull(1) ? default : rd.GetString(1);
-                        employee.Gender = rd.IsDBNull(2) ? default : rd.GetString(2);
+                        employee.Salary = rd.IsDBNull(4) ? default : rd.GetDouble(2);
                         employee.StartDate = rd.IsDBNull(3) ? default : rd.GetDateTime(3);
-                        employee.Salary = rd.IsDBNull(4) ? default : rd.GetDouble(4);
-                        employee.Department = rd.IsDBNull(5) ? default : rd.GetString(5);
+                        employee.Gender = rd.IsDBNull(2) ? default : rd.GetString(4);
+                        employee.Department = rd.IsDBNull(5) ? default : rd.GetString(6);
                         EmployeeModelList.Add(employee);
                     }
                     return EmployeeModelList;
