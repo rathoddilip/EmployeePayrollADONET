@@ -38,7 +38,7 @@ namespace EmployeePayrollADONET
                         emp.taxablePay = dr.IsDBNull(9) ? 0 : dr.GetInt32(9);
                         emp.incomeTax = dr.IsDBNull(10) ? 0 : dr.GetInt32(10);
                         employees.Add(emp);
-                        Console.WriteLine(emp.id + "," + emp.name + "," + emp.phoneNumber + " "+ emp.address);
+                        Console.WriteLine(emp.id + "," + emp.name + "," + emp.phoneNumber + " "+ emp.address + " "+emp.basicPay);
                     }//end while
 
                 }//end if
@@ -121,6 +121,8 @@ namespace EmployeePayrollADONET
             Console.WriteLine("Enter Gender");
             emp.gender = Console.ReadLine()[0];
             emp.phoneNumber = 0;
+            Console.WriteLine("Enter Salary");
+            emp.basicPay = Convert.ToInt32(Console.ReadLine());
 
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "sp_AddEmployeeEntry";
@@ -130,10 +132,16 @@ namespace EmployeePayrollADONET
                 {
                     SqlCommand sqlCommand = new SqlCommand(query, connection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@StartDate", emp.startDate);
                     sqlCommand.Parameters.AddWithValue("@Name", emp.name);
                     sqlCommand.Parameters.AddWithValue("@Gender", emp.gender);
                     sqlCommand.Parameters.AddWithValue("@PhoneNumber", emp.phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@BasicPay", emp.basicPay);
+                    sqlCommand.Parameters.AddWithValue("@StartDate", emp.startDate);
+                    
+                    
+                   
+                    
+                    
 
                     connection.Open();
                     sqlCommand.ExecuteNonQuery();
