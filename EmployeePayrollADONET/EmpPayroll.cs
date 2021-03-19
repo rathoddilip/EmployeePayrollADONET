@@ -101,8 +101,8 @@ namespace EmployeePayrollADONET
                 using (connection)
                 {
                     SqlCommand sqlCommand = new SqlCommand(storedProcedure, connection);
-                    sqlCommand.Parameters.AddWithValue("@name", name);
-                    sqlCommand.Parameters.AddWithValue("@salary", salary);
+                    sqlCommand.Parameters.AddWithValue("@EmpName", name);
+                    sqlCommand.Parameters.AddWithValue("@BasicPay", salary);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     connection.Open();
                     int recordsUpdated = sqlCommand.ExecuteNonQuery();
@@ -166,7 +166,7 @@ namespace EmployeePayrollADONET
             emp.name = Console.ReadLine();
             emp.startDate = DateTime.Now;
             Console.WriteLine("Enter Phone");
-            emp.phoneNumber = Convert.ToInt32(Console.ReadLine());
+            emp.phoneNumber = Convert.ToInt64(Console.ReadLine());
 
             SqlConnection connection = new SqlConnection(connectionString);
             string storedProcedure = "sp_UpdateEmployeePhoneNumber";
@@ -176,8 +176,8 @@ namespace EmployeePayrollADONET
                 {
                     SqlCommand sqlCommand = new SqlCommand(storedProcedure, connection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@phoneNumber", emp.phoneNumber);
-                    sqlCommand.Parameters.AddWithValue("@name", emp.name);
+                    sqlCommand.Parameters.AddWithValue("@PhoneNumber", emp.phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@EmpName", emp.name);
                     connection.Open();
                     sqlCommand.ExecuteNonQuery();
                     connection.Close();
@@ -189,41 +189,7 @@ namespace EmployeePayrollADONET
             }
         }
 
-        public void DeleteRecord()
-        {
-
-            Console.WriteLine("Enter Id To delete");
-
-            int id = Convert.ToInt32(Console.ReadLine());
-
-            SqlConnection connection = new SqlConnection(connectionString);
-            string query1 = @"Delete from Company where id =" + id + ";";
-            string query2 = @"Delete from Payroll where id =" + id + ";";
-            string query3 = @"Delete from Department where id =" + id + ";";
-            string query4 = @"Delete from EmployeePayroll where id =" + id + ";";
-            try
-            {
-                using (connection)
-                {
-                    SqlCommand sqlCommand1 = new SqlCommand(query1, connection);
-                    SqlCommand sqlCommand2 = new SqlCommand(query2, connection);
-                    SqlCommand sqlCommand3 = new SqlCommand(query3, connection);
-                    SqlCommand sqlCommand4 = new SqlCommand(query4, connection);
-                    connection.Open();
-                    sqlCommand1.ExecuteNonQuery();
-                    sqlCommand2.ExecuteNonQuery();
-                    sqlCommand3.ExecuteNonQuery();
-                    sqlCommand4.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-
-        }
+       
         public void DeleteRecordStoredProcedure()
         {
             Console.WriteLine("Enter Id To delete");
